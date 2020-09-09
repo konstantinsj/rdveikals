@@ -1,7 +1,9 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class HomePage extends RdveikalsTest {
 
@@ -48,29 +50,52 @@ public class HomePage extends RdveikalsTest {
     }
 
     public double selectPopularItemsAddToCart(int itemQuantity) {
-        double totalPriceInit = 0.00;
         double totalPrice = 0.00;
         for (int i = 0; i < itemQuantity; i++) {
             driver.get(pageUrl);
             wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".retailrocket-item")));
             driver.findElements(By.cssSelector(".retailrocket-item")).get(i).click();
+
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollBy(0,250)", "");
             driver.findElement(By.cssSelector(".btn--280")).click();
-            totalPrice = (totalPriceInit + Double.parseDouble(driver.findElement(By.xpath("//strong")).getAttribute("innerText")));
+
+            totalPrice = (totalPrice + getProductPrice());
+        //    System.out.println(totalPrice);
         }
         return totalPrice;
     }
 
+    public void selectAvailableRandomProduct() {
+        int randomPage = ThreadLocalRandom.current().nextInt(1, 500);
+        int randomProduct = ThreadLocalRandom.current().nextInt(0, 10);
+        driver.get(pageUrl + "/available/lv/page/" + randomPage + "/");
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".col.col--xs-4.product")));
+        driver.findElements(By.cssSelector(".col.col--xs-4.product")).get(randomProduct).click();
+    }
+
+    public void addProductToCart() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,250)", "");
+        driver.findElement(By.cssSelector(".btn--280")).click();
+    }
     public double getTotalPriceFromCart() {
         cartPage();
         return Double.parseDouble(driver.findElement(By.id("total_products_price_without_cupon")).getAttribute("innerText"));
+    }
+    public double getProductPrice() {
+        return Double.parseDouble(driver.findElement(By.xpath("//strong")).getAttribute("innerText"));
     }
 
     public int getItemQuantityFromCart() {
         return Integer.parseInt(driver.findElement(By.id("top_cart_counter")).getText());
     }
 
-    public void removeTopItemFromCart() {
+    public double removeTopItemFromCart() {
+        double removedItemPrice = 0.00;
         cartPage();
+        removedItemPrice = Double.parseDouble(driver.findElement(By.xpath("//li[1]/div/div[1]/p/b")).getAttribute("innerText"));
         driver.findElements(By.cssSelector(".btn.btn--square.btn--simple-error.btn--smaller")).get(0).click();
+        return removedItemPrice;
     }
 }

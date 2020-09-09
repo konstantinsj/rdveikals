@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="RdveikalsTest" time="78.808" tests="3" errors="0" skipped="0" failures="1">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="RdveikalsTest" time="52.937" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="11.0.4+10-LTS"/>
@@ -14,6 +14,7 @@
     <property name="user.script" value=""/>
     <property name="user.country" value="GB"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="test" value="RdveikalsTest#testAddAndRemoveProducts"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="C:\Users\Kos\IdeaProjects\rdveikals"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
@@ -28,7 +29,7 @@
     <property name="maven.ext.class.path" value="C:\Program Files\JetBrains\IntelliJ IDEA Educational Edition 2019.3\plugins\maven\lib\maven-event-listener.jar"/>
     <property name="classworlds.conf" value="C:\Program Files\JetBrains\IntelliJ IDEA Educational Edition 2019.3\plugins\maven\lib\maven3\bin\m2.conf"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk-11.0.4\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\dev\nodejs\;C:\Program Files\Java\jdk-11.0.4\bin;C:\dev\automation\node_modules\geckodriver.exe;C:\Program Files\Git\cmd;C:\Users\Kos\AppData\Local\Microsoft\WindowsApps;C:\Users\Kos\AppData\Local\GitHubDesktop\bin;C:\Users\Kos\AppData\Roaming\npm;C:\Users\Kos\AppData\Local\Programs\Microsoft VS Code\bin;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-11.0.4\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\dev\nodejs\;C:\Program Files\Java\jdk-11.0.4\bin;C:\dev\automation\node_modules\geckodriver.exe;C:\Program Files\Git\cmd;C:\Program Files\JetBrains\IntelliJ IDEA Educational Edition 2019.3\plugins\maven\lib\maven3\bin;C:\Users\Kos\scoop\shims;C:\Users\Kos\AppData\Local\Microsoft\WindowsApps;C:\Users\Kos\AppData\Local\GitHubDesktop\bin;C:\Users\Kos\AppData\Roaming\npm;C:\Users\Kos\AppData\Local\Programs\Microsoft VS Code\bin;."/>
     <property name="maven.conf" value="C:\Program Files\JetBrains\IntelliJ IDEA Educational Edition 2019.3\plugins\maven\lib\maven3/conf"/>
     <property name="jdk.debug" value="release"/>
     <property name="java.class.version" value="55.0"/>
@@ -44,7 +45,7 @@
     <property name="java.class.path" value="C:\Program Files\JetBrains\IntelliJ IDEA Educational Edition 2019.3\plugins\maven\lib\maven3\boot\plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="11"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version2019.3 clean test"/>
+    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version2019.3 test -Dtest=RdveikalsTest#testAddAndRemoveProducts"/>
     <property name="java.home" value="C:\Program Files\Java\jdk-11.0.4"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -63,11 +64,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="openProductsAndCheckHistoryTest" classname="RdveikalsTest" time="17.472"/>
-  <testcase name="addProductsToCartTest" classname="RdveikalsTest" time="29.462"/>
-  <testcase name="addAndRemoveProductsTest" classname="RdveikalsTest" time="21.002">
-    <failure message="expected:&lt;1517.97&gt; but was:&lt;505.99&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: expected:<1517.97> but was:<505.99>
-	at RdveikalsTest.addAndRemoveProductsTest(RdveikalsTest.java:53)
-]]></failure>
-  </testcase>
+  <testcase name="testAddAndRemoveProducts" classname="RdveikalsTest" time="42.421"/>
 </testsuite>

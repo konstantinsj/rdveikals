@@ -1,4 +1,5 @@
 import org.junit.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -28,7 +29,7 @@ public class RdveikalsTest {
     }
 
     @Test
-    public void openProductsAndCheckHistoryTest() {
+    public void testOpenProductsAndCheckHistory() {
         // Opens page, clicks on product. Checks history. Compares products
         //  set "q" for product quantity
 
@@ -42,24 +43,30 @@ public class RdveikalsTest {
     }
 
     @Test
-    public void addProductsToCartTest() {
+    public void testAddProductsToCart() {
         HomePage home = new HomePage();
         assertEquals(home.selectPopularItemsAddToCart(5), home.getTotalPriceFromCart(), 0.01);
     }
 
     @Test
-    public void addAndRemoveProductsTest() {
+    public void testAddAndRemoveProducts() {
+        int q = 5;
+        double expectedTotalPrice = 0.00;
+        double removedItemPrice = 0.00;
+
         HomePage home = new HomePage();
+        for (int i = 0; i < q; i++) {
+            home.selectAvailableRandomProduct();
+            expectedTotalPrice = expectedTotalPrice + home.getProductPrice();
+            home.addProductToCart();
+            assertEquals(expectedTotalPrice, home.getTotalPriceFromCart(), 0.01);
+            assertEquals(i+1, home.getItemQuantityFromCart());
+        }
+        System.out.println(expectedTotalPrice);
 
-        assertEquals(home.selectPopularItemsAddToCart(5), home.getTotalPriceFromCart(), 0.01);
+        removedItemPrice = home.removeTopItemFromCart();
+        System.out.println("removed" + removedItemPrice);
 
-        System.out.println(home.getTotalPriceFromCart());
-//        double expectedTotalPrice = home.getTotalPriceFromCart();
-
-        assertEquals(5, home.getItemQuantityFromCart());
-        home.removeTopItemFromCart();
-        home.removeTopItemFromCart();
-//        assertEquals(expectedTotalPrice, home.getTotalPriceFromCart(), 0.01);
+        assertEquals(expectedTotalPrice-removedItemPrice,home.getTotalPriceFromCart(), 0.01);
     }
 }
-

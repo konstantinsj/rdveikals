@@ -6,12 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ctco" />
-        <module name="rd" />
+        <module name="rdveikals" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="rdveikals" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
