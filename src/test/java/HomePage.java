@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static junit.framework.TestCase.assertEquals;
 
 public class HomePage extends RdveikalsTest {
+    //locators
     JavascriptExecutor js = (JavascriptExecutor) driver;
     String pageUrl = "https://www.rdveikals.lv";
     String availableProducts = "/available/lv/page/";
@@ -37,19 +38,7 @@ public class HomePage extends RdveikalsTest {
         driver.get(pageUrl + "/cart/lv");
     }
 
-    public String[] selectPopularItems(int itemQuantity) {
-        String[] clickedItemArray = new String[itemQuantity];  //
-
-        for (int i = 0; i < itemQuantity; i++) {
-            homePage();
-            wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".retailrocket-item")));
-            driver.findElements(By.cssSelector(".retailrocket-item")).get(i).click();
-            clickedItemArray[i] = driver.getCurrentUrl();
-        }
-        return clickedItemArray;
-    }
-
-    public String[] selectHistoryItems(int itemQuantity) {
+    public String[] openHistoryItems(int itemQuantity) {
         String[] historyItemArray = new String[itemQuantity];  //
 
         for (int i = 0; i < itemQuantity; i++) {
@@ -61,18 +50,6 @@ public class HomePage extends RdveikalsTest {
         // returning reversed list for easier compare
         Collections.reverse(Arrays.asList(historyItemArray));
         return historyItemArray;
-    }
-
-    public void selectAvailableRandomProduct() {
-        //clicking on random product from N pages and selecting N product on that page
-
-        int randomPage = ThreadLocalRandom.current().nextInt(1, 500);
-        int randomProduct = ThreadLocalRandom.current().nextInt(0, 10);
-
-        driver.get(pageUrl + availableProducts + randomPage + "/");
-        wait.until(ExpectedConditions.elementToBeClickable(productGridSelector));
-        List<WebElement> productGrid = driver.findElements(productGridSelector);
-        productGrid.get(randomProduct).click();
     }
 
     public void addProductToCart() {
@@ -92,6 +69,29 @@ public class HomePage extends RdveikalsTest {
     public int getItemQuantityFromCart() {
         WebElement topCartCounterElement = driver.findElement(topCartLocator);
         return Integer.parseInt(topCartCounterElement.getText());
+    }
+
+    public void selectAvailableRandomProduct() {
+        //clicking on random product from N pages and selecting N product on that page
+
+        int randomPage = ThreadLocalRandom.current().nextInt(1, 500);
+        int randomProduct = ThreadLocalRandom.current().nextInt(0, 10);
+
+        driver.get(pageUrl + availableProducts + randomPage + "/");
+        wait.until(ExpectedConditions.elementToBeClickable(productGridSelector));
+        List<WebElement> productGrid = driver.findElements(productGridSelector);
+        productGrid.get(randomProduct).click();
+    }
+
+    public String[] openRandomProducts(int itemQuantity) {
+        String[] clickedItemArray = new String[itemQuantity];  //
+
+        for (int i = 0; i < itemQuantity; i++) {
+            homePage();
+            selectAvailableRandomProduct();
+            clickedItemArray[i] = driver.getCurrentUrl();
+        }
+        return clickedItemArray;
     }
 
     public double addRandomProductsToCart(int quantity) {

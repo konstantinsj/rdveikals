@@ -1,17 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: RdveikalsTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 20.695 sec <<< FAILURE! - in RdveikalsTest
-testAddAndRemoveProducts(RdveikalsTest)  Time elapsed: 12.347 sec  <<< ERROR!
-org.openqa.selenium.NoSuchElementException: 
-no such element: Unable to locate element: {"method":"css selector","selector":"#total_products_price_without_cupon"}
-  (Session info: chrome=85.0.4183.102)
-For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'DESKTOP-07459SD', ip: '192.168.0.52', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.4'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 85.0.4183.102, chrome: {chromedriverVersion: 85.0.4183.38 (9047dbc2c693f..., userDataDir: C:\Users\Kos\AppData\Local\...}, goog:chromeOptions: {debuggerAddress: localhost:50161}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
-Session ID: 63b353cabbbcdce32c0a5d0854dc5efa
-*** Element info: {Using=id, value=total_products_price_without_cupon}
-	at RdveikalsTest.testAddAndRemoveProducts(RdveikalsTest.java:56)
-
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 94.541 sec - in RdveikalsTest

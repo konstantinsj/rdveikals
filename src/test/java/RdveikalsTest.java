@@ -33,7 +33,7 @@ public class RdveikalsTest {
 
         int q = 2;
         HomePage home = new HomePage();
-        assertArrayEquals(home.selectPopularItems(q), home.selectHistoryItems(q));
+        assertArrayEquals(home.openRandomProducts(q), home.openHistoryItems(q));
     }
 
     @Test
