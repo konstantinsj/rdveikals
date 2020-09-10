@@ -2,6 +2,7 @@ import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.*;
 
@@ -9,7 +10,7 @@ import static org.junit.Assert.*;
 public class RdveikalsTest {
 
     static WebDriver driver;
-//    WebDriverWait wait = new WebDriverWait(driver, 10);
+    WebDriverWait wait = new WebDriverWait(driver, 10);
 
     @Rule
     public ScreenShotOnFailure failure = new ScreenShotOnFailure(driver);
