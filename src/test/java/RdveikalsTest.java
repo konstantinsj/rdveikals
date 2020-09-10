@@ -3,7 +3,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.concurrent.TimeUnit;
+
 import static org.junit.Assert.*;
 
 
@@ -20,7 +22,7 @@ public class RdveikalsTest {
         System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\chromedriver\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
-        driver.manage().window().maximize();
+//        driver.manage().window().maximize();
     }
 
     @AfterClass
@@ -45,28 +47,16 @@ public class RdveikalsTest {
     @Test
     public void testAddProductsToCart() {
         HomePage home = new HomePage();
-        assertEquals(home.selectPopularItemsAddToCart(5), home.getTotalPriceFromCart(), 0.01);
+        assertEquals(home.addRandomProductsToCart(5), home.getTotalPriceFromCart(), 0.01);
+        home.removeTopItemFromCart(5);
     }
 
     @Test
     public void testAddAndRemoveProducts() {
-        int q = 5;
-        double expectedTotalPrice = 0.00;
-        double removedItemPrice = 0.00;
-
         HomePage home = new HomePage();
-        for (int i = 0; i < q; i++) {
-            home.selectAvailableRandomProduct();
-            expectedTotalPrice = expectedTotalPrice + home.getProductPrice();
-            home.addProductToCart();
-            assertEquals(expectedTotalPrice, home.getTotalPriceFromCart(), 0.01);
-            assertEquals(i+1, home.getItemQuantityFromCart());
-        }
-        System.out.println(expectedTotalPrice);
-
-        removedItemPrice = home.removeTopItemFromCart();
-        System.out.println("removed" + removedItemPrice);
-
-        assertEquals(expectedTotalPrice-removedItemPrice,home.getTotalPriceFromCart(), 0.01);
+        double expectedTotalPrice = home.addRandomProductsToCart(5);
+        double removedItemPrice = home.removeTopItemFromCart(2);
+        assertEquals(expectedTotalPrice - removedItemPrice, home.getTotalPriceFromCart(), 0.01);
+        assertEquals(3, home.getItemQuantityFromCart());
     }
 }
