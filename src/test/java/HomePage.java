@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
@@ -9,16 +10,12 @@ import java.util.concurrent.ThreadLocalRandom;
 import static junit.framework.TestCase.assertEquals;
 
 public class HomePage extends RdveikalsTest {
-    JavascriptExecutor js = (JavascriptExecutor) driver;
-    String pageUrl = "https://www.rdveikals.lv";
 
     public void homePage() {
-        //Page URL
         driver.get(pageUrl);
     }
 
     public void historyPage() {
-        //History page
         driver.get(pageUrl + "/recent_history/");
     }
 
@@ -26,51 +23,17 @@ public class HomePage extends RdveikalsTest {
         driver.get(pageUrl + "/cart/lv");
     }
 
-    public String[] selectPopularItems(int itemQuantity) {
-        String[] clickedItemArray = new String[itemQuantity];  //
-
-        for (int i = 0; i < itemQuantity; i++) {
-            homePage();
-            wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".retailrocket-item")));
-            driver.findElements(By.cssSelector(".retailrocket-item")).get(i).click();
-            clickedItemArray[i] = driver.getCurrentUrl();
-        }
-        return clickedItemArray;
-    }
-
-    public String[] selectHistoryItems(int itemQuantity) {
-        String[] historyItemArray = new String[itemQuantity];  //
-
-        for (int i = 0; i < itemQuantity; i++) {
-            historyPage();
-            wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".product.js-product")));
-            driver.findElements(By.cssSelector(".product.js-product")).get(i).click();
-            historyItemArray[i] = driver.getCurrentUrl();
-        }
-        // returning reversed list for easier compare
-        Collections.reverse(Arrays.asList(historyItemArray));
-        return historyItemArray;
-    }
-
-    public void selectAvailableRandomProduct() {
-        int randomPage = ThreadLocalRandom.current().nextInt(1, 500);
-        int randomProduct = ThreadLocalRandom.current().nextInt(0, 10);
-        driver.get(pageUrl + "/available/lv/page/" + randomPage + "/");
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".col.col--xs-4.product")));
-        driver.findElements(By.cssSelector(".col.col--xs-4.product")).get(randomProduct).click();
-    }
-
     public void addProductToCart() {
         js.executeScript("window.scrollBy(0,200)", "");
-        driver.findElement(By.cssSelector(".btn--280")).click();
+        addToCartElement.click();
     }
+
     public double getTotalPriceFromCart() {
         cartPage();
-
-        WebElement element = driver.findElement(By.id("total_products_price_without_cupon"));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        js.executeScript("arguments[0].scrollIntoView(true);", priceInCartElement);
         return Double.parseDouble(driver.findElement(By.id("total_products_price_without_cupon")).getAttribute("innerText"));
     }
+
     public double getProductPrice() {
         return Double.parseDouble(driver.findElement(By.xpath("//strong")).getAttribute("innerText"));
     }
@@ -99,12 +62,55 @@ public class HomePage extends RdveikalsTest {
 
         for (int i = 0; i < quantity; i++) {
             cartPage();
-            removedItemPrice = removedItemPrice + Double.parseDouble(driver.findElement(By.xpath("//li[1]/div/div[1]/p/b")).getAttribute("innerText"));
-//            js.executeScript("window.scrollTo(0, 0)");
-            WebElement removeTopItemFromCart = driver.findElements(By.cssSelector(".btn.btn--square.btn--simple-error.btn--smaller")).get(0);
+            removedItemPrice = removedItemPrice + Double.parseDouble(itemPriceElement.getAttribute("innerText"));
             js.executeScript("arguments[0].click();", removeTopItemFromCart);
-//            driver.findElements(By.cssSelector(".btn.btn--square.btn--simple-error.btn--smaller")).get(0).click();
         }
         return removedItemPrice;
     }
+    public String[] selectPopularItems(int itemQuantity) {
+        String[] clickedItemArray = new String[itemQuantity];
+
+        for (int i = 0; i < itemQuantity; i++) {
+            homePage();
+            wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".retailrocket-item")));
+            driver.findElements(By.cssSelector(".retailrocket-item")).get(i).click();
+            clickedItemArray[i] = driver.getCurrentUrl();
+        }
+        return clickedItemArray;
+    }
+
+    public String[] selectHistoryItems(int itemQuantity) {
+        String[] historyItemArray = new String[itemQuantity];  //
+
+        for (int i = 0; i < itemQuantity; i++) {
+            historyPage();
+            wait.until(ExpectedConditions.elementToBeClickable(historyProductLocator));
+            driver.findElements(historyProductLocator).get(i).click();
+            historyItemArray[i] = driver.getCurrentUrl();
+        }
+        // returning reversed list for easier compare
+        Collections.reverse(Arrays.asList(historyItemArray));
+        return historyItemArray;
+    }
+
+    public void selectAvailableRandomProduct() {
+        //clicking on random product from N pages and selecting N product on that page
+
+        int randomPage = ThreadLocalRandom.current().nextInt(1, 500);
+        int randomProduct = ThreadLocalRandom.current().nextInt(0, 10);
+        driver.get(availableProducts + randomPage + "/");
+        wait.until(ExpectedConditions.elementToBeClickable(productOnGridLocator));
+        driver.findElements(productOnGridLocator).get(randomProduct).click();
+    }
+
+    String pageUrl = "https://www.rdveikals.lv";
+    By historyProductLocator = By.cssSelector(".product.js-product");
+    By productOnGridLocator = By.cssSelector(".col.col--xs-4.product");
+    WebElement priceInCartElement = driver.findElement(By.id("total_products_price_without_cupon"));
+    WebElement removeTopItemFromCart = driver.findElements(By.cssSelector(".btn.btn--square.btn--simple-error.btn--smaller")).get(0);
+    WebElement itemPriceElement = driver.findElement(By.xpath("//li[1]/div/div[1]/p/b"));
+    WebElement addToCartElement = driver.findElement(By.cssSelector(".btn--280"));
+    String availableProducts = pageUrl + "/available/lv/page/";
+    JavascriptExecutor js = (JavascriptExecutor) driver;
+    WebDriverWait wait = new WebDriverWait(driver, 10);
 }
