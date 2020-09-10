@@ -4,13 +4,24 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static junit.framework.TestCase.assertEquals;
 
 public class HomePage extends RdveikalsTest {
     JavascriptExecutor js = (JavascriptExecutor) driver;
     String pageUrl = "https://www.rdveikals.lv";
+    String availableProducts = "/available/lv/page/";
+    By historyProductsLocator = By.cssSelector(".product.js-product");
+    By topCartLocator = By.id("top_cart_counter");
+    By productGridSelector = By.cssSelector(".col.col--xs-4.product");
+    By totalProductsPriceLocator = By.id("total_products_price_without_cupon");
+    By addToCartButtonLocator = By.cssSelector(".btn--280");
+    By removeTopItemFromCartLocator = By.cssSelector(".btn.btn--square.btn--simple-error.btn--smaller");
+    By topItemInCartPriceLocator = By.xpath("//li[1]/div/div[1]/p/b");
+    By productPriceLocator = By.xpath("//strong");
 
     public void homePage() {
         //Page URL
@@ -43,8 +54,8 @@ public class HomePage extends RdveikalsTest {
 
         for (int i = 0; i < itemQuantity; i++) {
             historyPage();
-            wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".product.js-product")));
-            driver.findElements(By.cssSelector(".product.js-product")).get(i).click();
+            wait.until(ExpectedConditions.elementToBeClickable(historyProductsLocator));
+            driver.findElements(historyProductsLocator).get(i).click();
             historyItemArray[i] = driver.getCurrentUrl();
         }
         // returning reversed list for easier compare
@@ -53,30 +64,34 @@ public class HomePage extends RdveikalsTest {
     }
 
     public void selectAvailableRandomProduct() {
+        //clicking on random product from N pages and selecting N product on that page
+
         int randomPage = ThreadLocalRandom.current().nextInt(1, 500);
         int randomProduct = ThreadLocalRandom.current().nextInt(0, 10);
-        driver.get(pageUrl + "/available/lv/page/" + randomPage + "/");
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".col.col--xs-4.product")));
-        driver.findElements(By.cssSelector(".col.col--xs-4.product")).get(randomProduct).click();
+
+        driver.get(pageUrl + availableProducts + randomPage + "/");
+        wait.until(ExpectedConditions.elementToBeClickable(productGridSelector));
+        List<WebElement> productGrid = driver.findElements(productGridSelector);
+        productGrid.get(randomProduct).click();
     }
 
     public void addProductToCart() {
         js.executeScript("window.scrollBy(0,200)", "");
-        driver.findElement(By.cssSelector(".btn--280")).click();
+        driver.findElement(addToCartButtonLocator).click();
     }
     public double getTotalPriceFromCart() {
         cartPage();
-
-        WebElement element = driver.findElement(By.id("total_products_price_without_cupon"));
+        WebElement element = driver.findElement(totalProductsPriceLocator);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        return Double.parseDouble(driver.findElement(By.id("total_products_price_without_cupon")).getAttribute("innerText"));
+        return Double.parseDouble(driver.findElement(totalProductsPriceLocator).getAttribute("innerText"));
     }
     public double getProductPrice() {
-        return Double.parseDouble(driver.findElement(By.xpath("//strong")).getAttribute("innerText"));
+        return Double.parseDouble(driver.findElement(productPriceLocator).getAttribute("innerText"));
     }
 
     public int getItemQuantityFromCart() {
-        return Integer.parseInt(driver.findElement(By.id("top_cart_counter")).getText());
+        WebElement topCartCounterElement = driver.findElement(topCartLocator);
+        return Integer.parseInt(topCartCounterElement.getText());
     }
 
     public double addRandomProductsToCart(int quantity) {
@@ -99,11 +114,9 @@ public class HomePage extends RdveikalsTest {
 
         for (int i = 0; i < quantity; i++) {
             cartPage();
-            removedItemPrice = removedItemPrice + Double.parseDouble(driver.findElement(By.xpath("//li[1]/div/div[1]/p/b")).getAttribute("innerText"));
-//            js.executeScript("window.scrollTo(0, 0)");
-            WebElement removeTopItemFromCart = driver.findElements(By.cssSelector(".btn.btn--square.btn--simple-error.btn--smaller")).get(0);
+            removedItemPrice = removedItemPrice + Double.parseDouble(driver.findElement(topItemInCartPriceLocator).getAttribute("innerText"));
+            WebElement removeTopItemFromCart = driver.findElements(removeTopItemFromCartLocator).get(0);
             js.executeScript("arguments[0].click();", removeTopItemFromCart);
-//            driver.findElements(By.cssSelector(".btn.btn--square.btn--simple-error.btn--smaller")).get(0).click();
         }
         return removedItemPrice;
     }
