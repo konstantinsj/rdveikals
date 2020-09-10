@@ -1,18 +1,20 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static junit.framework.TestCase.assertEquals;
 
 public class HomePage extends RdveikalsTest {
+
     //locators
-    JavascriptExecutor js = (JavascriptExecutor) driver;
     String pageUrl = "https://www.rdveikals.lv";
     String availableProducts = "/available/lv/page/";
     By historyProductsLocator = By.cssSelector(".product.js-product");
@@ -24,13 +26,11 @@ public class HomePage extends RdveikalsTest {
     By topItemInCartPriceLocator = By.xpath("//li[1]/div/div[1]/p/b");
     By productPriceLocator = By.xpath("//strong");
 
-    public void homePage() {
-        //Page URL
-        driver.get(pageUrl);
-    }
+//    public void homePage() {
+//        driver.get(pageUrl);
+//    }
 
     public void historyPage() {
-        //History page
         driver.get(pageUrl + "/recent_history/");
     }
 
@@ -87,7 +87,6 @@ public class HomePage extends RdveikalsTest {
         String[] clickedItemArray = new String[itemQuantity];  //
 
         for (int i = 0; i < itemQuantity; i++) {
-            homePage();
             selectAvailableRandomProduct();
             clickedItemArray[i] = driver.getCurrentUrl();
         }
