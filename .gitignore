@@ -3,3 +3,4 @@
 /Screenshots
 allure-report/
 target/
+target/surefire-reports/
