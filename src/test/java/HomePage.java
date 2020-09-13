@@ -15,27 +15,36 @@ import static junit.framework.TestCase.assertEquals;
 public class HomePage extends RdveikalsTest {
 
     //locators
-    String pageUrl = "https://www.rdveikals.lv";
-    String availableProducts = "/available/lv/page/";
-    By historyProductsLocator = By.cssSelector(".product.js-product");
-    By topCartLocator = By.id("top_cart_counter");
-    By productGridSelector = By.cssSelector(".col.col--xs-4.product");
-    By totalProductsPriceLocator = By.id("total_products_price_without_cupon");
-    By addToCartButtonLocator = By.cssSelector(".btn--280");
-    By removeTopItemFromCartLocator = By.cssSelector(".btn.btn--square.btn--simple-error.btn--smaller");
-    By topItemInCartPriceLocator = By.xpath("//li[1]/div/div[1]/p/b");
-    By productPriceLocator = By.xpath("//strong");
+    private String pageUrl = "https://www.rdveikals.lv";
+    private String availableProducts = "/available/lv/page/";
+    private By historyProductsLocator = By.cssSelector(".product.js-product");
+    private By topCartLocator = By.id("top_cart_counter");
+    private By productGridSelector = By.cssSelector(".col.col--xs-4.product");
+    private By totalProductsPriceLocator = By.id("total_products_price_without_cupon");
+    private By addToCartButtonLocator = By.cssSelector(".btn--280");
+    private By removeTopItemFromCartLocator = By.cssSelector(".btn.btn--square.btn--simple-error.btn--smaller");
+    private By topItemInCartPriceLocator = By.xpath("//li[1]/div/div[1]/p/b");
+    private By productPriceLocator = By.xpath("//strong");
 
 //    public void homePage() {
 //        driver.get(pageUrl);
 //    }
 
-    public void historyPage() {
+    private void historyPage() {
         driver.get(pageUrl + "/recent_history/");
     }
 
-    public void cartPage() {
+    private void cartPage() {
         driver.get(pageUrl + "/cart/lv");
+    }
+
+    private void addProductToCart() {
+        js.executeScript("window.scrollBy(0,200)", "");
+        driver.findElement(addToCartButtonLocator).click();
+    }
+
+    private double getProductPrice() {
+        return Double.parseDouble(driver.findElement(productPriceLocator).getAttribute("innerText"));
     }
 
     public String[] openHistoryItems(int itemQuantity) {
@@ -52,18 +61,11 @@ public class HomePage extends RdveikalsTest {
         return historyItemArray;
     }
 
-    public void addProductToCart() {
-        js.executeScript("window.scrollBy(0,200)", "");
-        driver.findElement(addToCartButtonLocator).click();
-    }
     public double getTotalPriceFromCart() {
         cartPage();
         WebElement element = driver.findElement(totalProductsPriceLocator);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         return Double.parseDouble(driver.findElement(totalProductsPriceLocator).getAttribute("innerText"));
-    }
-    public double getProductPrice() {
-        return Double.parseDouble(driver.findElement(productPriceLocator).getAttribute("innerText"));
     }
 
     public int getItemQuantityFromCart() {

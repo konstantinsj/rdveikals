@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="RdveikalsTest" time="153.8" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="RdveikalsTest" time="124.661" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -47,9 +47,9 @@
     <property name="java.vendor.url.bug" value="http://bugreport.java.com/bugreport/"/>
     <property name="java.io.tmpdir" value="C:\WINDOWS\TEMP\"/>
     <property name="java.version" value="11.0.4"/>
-    <property name="user.dir" value="C:\Windows\System32\config\systemprofile\AppData\Local\Jenkins.jenkins\workspace\RDveikals All Tests"/>
+    <property name="user.dir" value="C:\Users\Kos\IdeaProjects\rdveikals"/>
     <property name="os.arch" value="amd64"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\WINDOWS\system32\config\systemprofile\AppData\Local\Jenkins.jenkins\workspace\RDveikals All Tests"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\Kos\IdeaProjects\rdveikals"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
     <property name="sun.os.patch.level" value=""/>
@@ -62,7 +62,7 @@
     <property name="library.jansi.path" value="C:\Program Files\JetBrains\IntelliJ IDEA Educational Edition 2019.3\plugins\maven\lib\maven3\bin\..\lib\jansi-native"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="testOpenProductsAndCheckHistory" classname="RdveikalsTest" time="22.386"/>
-  <testcase name="testAddProductsToCart" classname="RdveikalsTest" time="63.844"/>
-  <testcase name="testAddAndRemoveProducts" classname="RdveikalsTest" time="56.093"/>
+  <testcase name="testOpenProductsAndCheckHistory" classname="RdveikalsTest" time="19.88"/>
+  <testcase name="testAddProductsToCart" classname="RdveikalsTest" time="45.579"/>
+  <testcase name="testAddAndRemoveProducts" classname="RdveikalsTest" time="48.893"/>
 </testsuite>
