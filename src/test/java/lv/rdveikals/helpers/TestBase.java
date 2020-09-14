@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class TestBase {
     static WebDriver driver;
+    static String chromeDriverPath = "C:\\Program Files\\chromedriver\\chromedriver.exe";
 
     WebDriverWait wait = new WebDriverWait(driver, 10);
     JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -21,12 +22,11 @@ public class TestBase {
 
     @BeforeClass
     public static void setup() {
-//        System.setProperty("webdriver.chrome.driver", chromeDriverPath);
-        System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\chromedriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", chromeDriverPath );
         ChromeOptions options = new ChromeOptions();
-//      options.addArguments("--headless");
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
+//      options.addArguments("--headless");
 //      driver.manage().window().maximize();
     }
 
