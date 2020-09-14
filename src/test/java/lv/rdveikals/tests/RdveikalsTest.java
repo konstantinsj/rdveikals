@@ -1,7 +1,11 @@
+package lv.rdveikals.tests;
+
+import lv.rdveikals.helpers.HomePage;
+import lv.rdveikals.helpers.TestBase;
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class RdveikalsTest extends TestBase{
+public class RdveikalsTest extends TestBase {
 
     HomePage home = new HomePage();
 
@@ -11,7 +15,7 @@ public class RdveikalsTest extends TestBase{
 
         int q = 2;
 
-        assertArrayEquals(home.openRandomProducts(q), home.openHistoryItems(q));
+        Assert.assertArrayEquals(home.openRandomProducts(q), home.openHistoryItems(q));
     }
 
     @Test
@@ -20,7 +24,7 @@ public class RdveikalsTest extends TestBase{
 
         int q = 5;
 
-        assertEquals(home.addRandomProductsToCart(q), home.getTotalPriceFromCart(), 0.01);
+        Assert.assertEquals(home.addRandomProductsToCart(q), home.getTotalPriceFromCart(), 0.01);
         home.removeTopItemFromCart(q);
     }
 
@@ -30,7 +34,7 @@ public class RdveikalsTest extends TestBase{
 
         double expectedTotalPrice = home.addRandomProductsToCart(5);
         double removedItemPrice = home.removeTopItemFromCart(2);
-        assertEquals(expectedTotalPrice - removedItemPrice, home.getTotalPriceFromCart(), 0.01);
-        assertEquals(3, home.getItemQuantityFromCart());
+        Assert.assertEquals(expectedTotalPrice - removedItemPrice, home.getTotalPriceFromCart(), 0.01);
+        Assert.assertEquals(3, home.getItemQuantityFromCart());
     }
 }

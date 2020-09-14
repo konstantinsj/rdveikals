@@ -1,3 +1,5 @@
+package lv.rdveikals.helpers;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;

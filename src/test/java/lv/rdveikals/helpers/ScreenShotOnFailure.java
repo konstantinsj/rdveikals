@@ -1,3 +1,5 @@
+package lv.rdveikals.helpers;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.rules.MethodRule;
 import org.junit.runners.model.FrameworkMethod;

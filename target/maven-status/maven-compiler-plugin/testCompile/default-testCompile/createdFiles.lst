@@ -1,5 +1,5 @@
-TestBase.class
-HomePage.class
-ScreenShotOnFailure.class
-ScreenShotOnFailure$1.class
-RdveikalsTest.class
+lv\rdveikals\helpers\TestBase.class
+lv\rdveikals\helpers\HomePage.class
+lv\rdveikals\helpers\ScreenShotOnFailure.class
+lv\rdveikals\helpers\ScreenShotOnFailure$1.class
+lv\rdveikals\tests\RdveikalsTest.class
