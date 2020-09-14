@@ -5,3 +5,5 @@ allure-report/
 target/
 target/surefire-reports/
 target/surefire-reports/RdveikalsTest.txt
+target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
+target/surefire-reports/RdveikalsTest.txt
