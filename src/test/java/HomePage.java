@@ -1,18 +1,14 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-
 import static junit.framework.TestCase.assertEquals;
 
-public class HomePage extends RdveikalsTest {
+public class HomePage extends TestBase {
 
     //locators
     private String pageUrl = "https://www.rdveikals.lv";

@@ -4,8 +4,8 @@ import org.junit.Rule;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.concurrent.TimeUnit;
 
 public class TestBase {
@@ -19,8 +19,11 @@ public class TestBase {
 
     @BeforeClass
     public static void setup() {
+//        System.setProperty("webdriver.chrome.driver", chromeDriverPath);
         System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\chromedriver\\chromedriver.exe");
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+//      options.addArguments("--headless");
+        driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
 //      driver.manage().window().maximize();
     }
