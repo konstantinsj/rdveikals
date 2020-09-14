@@ -2,3 +2,4 @@
 /target/*
 /Screenshots
 allure-report/
+target/
