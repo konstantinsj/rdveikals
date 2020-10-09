@@ -16,5 +16,5 @@ Test case 3:
 
 
 How to run:
-Check your path to chromedriver
+Check your path to chromedriver.
 Run with "maven clean test" command.
